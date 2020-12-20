@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyPraser = require('body-parser');
-const moment = require('moment');
+const date = require(__dirname + '/date.js');
 
 const app = express();
 let tasks = [];
@@ -10,8 +10,8 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) =>{
-    const today = moment().format('dddd Do MMM YYYY');
     
+    const today = date.getDate();
 
     res.render('list', {listTitle: today, newTask: tasks});
 });
@@ -19,6 +19,10 @@ app.get('/', (req, res) =>{
 app.get('/work', (req, res) => {
     res.render('list', {listTitle: 'Work List', newTask: workTask})
 });
+
+app.get('/about', (req, res) => {
+    res.render('about')
+})
 
 // app.post('/work', (req, res) => {
 //     const task = req.body.task;
